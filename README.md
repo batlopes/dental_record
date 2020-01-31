@@ -1,3 +1,19 @@
+## Passos para execução da aplicação
+
+- Clone o repositório
+- Entre no diretório
+- Instale o Composer, ou caso já tenha siga para o próximo passo
+- execute o comando ```composer install```
+- Copie o arquivo ```.env.example``` e o renomeie para ```.env```
+- Inicie o serviço do Mysql ou MariaDB
+- Defina no arquivo ```.env``` as configurações do seu embiente(DB_PORT, DB_DATABASE, DB_USERNAME, DB_PASSWORD...)
+- Execute o comando ```php artisan key:generate``` para gerar a chave da aplicação
+- (opcional) Execute php artisan db:seed para popular o banco de dados
+
+Caso você tenha executado todos os comandos sem erro, executando ```php artisan serve``` a aplicação deve rodar normalmente, e para acessá-la basta acessar, pelo browser, o link mostrado na linha de comando.
+
+
+
 <p align="center"><img src="https://res.cloudinary.com/dtfbvvkyp/image/upload/v1566331377/laravel-logolockup-cmyk-red.svg" width="400"></p>
 
 <p align="center">
