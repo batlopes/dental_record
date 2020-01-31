@@ -29,37 +29,45 @@
                 </thead>
                 <tbody class="table-striped">
                 @foreach ($data as $d)
-                    <tr>
-                        <th style="text-align: center; vertical-align: middle;" rowspan="{{count($d->clinic)}}">{{$d->name}}</th>
-                        @foreach($d->clinic as $c)
-                            <td>{{$c->name}}</td>
-                            <td>
-                                @php
-                                    $i = count($d->clinic[0]->pivot->days->days);
-                                    foreach($d->clinic[0]->pivot->days->days as $day){
-                                        $i--;
-                                        if($i==0){
-                                            echo $day;
-                                        } else{
-                                            echo $day.", ";
+                    @if(count($d->clinic)!=0)
+                        @for($j = count($d->clinic);$j > 0;$j--)
+                            <tr>
+                                @if($j==count($d->clinic))
+                                    <th style="text-align: center; vertical-align: middle;" rowspan="{{count($d->clinic)}}">{{$d->name}}</th>
+                                @endif
+                                <td>{{$d->clinic[$j-1]->name}}</td>
+                                <td>
+                                    @php
+                                        $i = count($d->clinic[0]->pivot["days"]);
+                                        foreach($d->clinic[0]->pivot["days"] as $day){
+                                            $i--;
+                                            if($i==0){
+                                                echo $day;
+                                            } else{
+                                                echo $day.", ";
+                                            }
                                         }
-                                    }
-                                @endphp
-                            </td>
-                            <td>
-                                @php
-                                    $time = strtotime($d->clinic[0]->pivot->start_time);
-                                    echo date("H:i", $time);
-                                @endphp
-                                -
-                                @php
-                                    $time = strtotime($d->clinic[0]->pivot->end_time);
-                                    echo date("H:i", $time);
-                                @endphp
-                            </td>
-                    </tr>
+                                    @endphp
+                                </td>
+                                <td>
+                                    @php
+                                        $time = strtotime($d->clinic[0]->pivot->start_time);
+                                        echo date("H:i", $time);
+                                    @endphp
+                                    -
+                                    @php
+                                        $time = strtotime($d->clinic[0]->pivot->end_time);
+                                        echo date("H:i", $time);
+                                    @endphp
+                                </td>
+                            </tr>
+
+                        @endfor
+
+                    @endif
                 @endforeach
-                        @endforeach
+
+
 
                 </tbody>
             </table>
