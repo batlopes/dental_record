@@ -11,6 +11,20 @@
 |
 */
 
+use App\Dentist;
+use Illuminate\Support\Facades\Log;
+
 Route::get('/', function () {
-    return view('welcome');
+    $data = Dentist::with('clinic')->get();
+    foreach ($data as $d){
+        foreach ($d->clinic as $c){
+            $c->pivot->days = json_decode($c->pivot->days);
+        }
+    }
+    return view('dental-list', ["data" =>$data]);
 });
+Route::get('/register', function (){
+    Log::info("funcionou");
+    return view('dental-register');
+});
+Route::post('/register', 'ClinicDentistController@store')->name("register");
